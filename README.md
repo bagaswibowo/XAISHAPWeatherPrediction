@@ -1,70 +1,62 @@
-# 🌦️ Prediksi Cuaca Australia dengan XGBoost, SHAP, dan Flask
+# Prediksi Cuaca Australia
 
-Proyek ini adalah sebuah pipeline machine learning lengkap untuk memprediksi kemungkinan hujan di Australia pada hari berikutnya. Pipeline ini mencakup analisis data eksplorasi (EDA), preprocessing, pelatihan model, tuning hyperparameter, hingga interpretasi model menggunakan SHAP. Hasil akhirnya adalah sebuah aplikasi web sederhana yang dibangun dengan Flask, di mana pengguna dapat mengunggah data cuaca dalam format CSV atau Excel untuk mendapatkan prediksi.
+Proyek ini dibuat untuk memprediksi apakah besok akan hujan di Australia atau tidak. Prosesnya dimulai dari analisis data di Jupyter Notebook, melatih model machine learning dengan XGBoost, hingga menjadi sebuah aplikasi web sederhana yang bisa dicoba.
 
-## 🚀 Fitur Utama
+Di dalam aplikasi web tersebut, Anda bisa mengunggah file data cuaca (dalam format CSV atau Excel), dan aplikasi akan memberikan prediksinya secara langsung.
 
-- **Analisis Data Komprehensif**: Notebook Jupyter (`Model Weather Prediction.ipynb`) menyajikan analisis data yang mendalam, mulai dari pembersihan, visualisasi, hingga analisis korelasi.
-- **Modeling dengan XGBoost**: Menggunakan `XGBoost`, salah satu algoritma gradient boosting terkuat, untuk mencapai akurasi prediksi yang tinggi.
-- **Tuning Hyperparameter**: Melakukan optimisasi model menggunakan `GridSearchCV` dan `RandomizedSearchCV` untuk menemukan parameter terbaik.
-- **Ensemble Learning**: Menerapkan metode `StackingClassifier` yang menggabungkan beberapa model (XGBoost, RandomForest, LogisticRegression) untuk meningkatkan performa.
-- **Interpretasi Model dengan SHAP**: Menganalisis "kotak hitam" model dengan SHAP (SHapley Additive exPlanations) untuk memahami faktor-faktor utama yang memengaruhi prediksi.
-- **Aplikasi Web Interaktif**: Sebuah aplikasi web berbasis Flask yang memungkinkan pengguna mengunggah file data mereka sendiri dan mendapatkan prediksi secara real-time.
-- **Modular dan Terdokumentasi**: Kode ditulis secara modular dan setiap langkah dalam notebook dijelaskan dengan baik untuk kemudahan pemahaman.
+## Apa Saja yang Ada di Proyek Ini?
 
-## 🛠️ Teknologi yang Digunakan
+- **Notebook Analisis**: File `Model Weather Prediction.ipynb` berisi semua langkah analisis data, mulai dari pembersihan, visualisasi, sampai pembuatan model.
+- **Model Machine Learning**: Menggunakan XGBoost yang di-tuning untuk mendapatkan hasil prediksi terbaik. Ada juga eksperimen dengan metode ensemble untuk meningkatkan akurasi.
+- **Interpretasi Model**: Menggunakan SHAP untuk mencari tahu fitur apa saja yang paling memengaruhi prediksi model.
+- **Aplikasi Web**: Aplikasi sederhana yang dibuat dengan Flask untuk mencoba model yang sudah dilatih.
 
-- **Bahasa Pemrograman**: Python 3
-- **Library Machine Learning**: Scikit-learn, XGBoost, SHAP
-- **Analisis & Manipulasi Data**: Pandas, NumPy
-- **Visualisasi Data**: Matplotlib, Seaborn
-- **Web Framework**: Flask
-- **Deployment Lokal**: Virtual Environment Python
+## Teknologi yang Dipakai
 
-## 📂 Struktur File
+- **Bahasa**: Python
+- **Library Utama**: Scikit-learn, XGBoost, SHAP, Pandas, NumPy
+- **Web**: Flask
+
+## Struktur File
 
 ```
 .
 ├── Model Weather Prediction.ipynb  # Notebook utama untuk analisis dan modeling
-├── Weather Improve Prediction.ipynb # Notebook pengembangan (opsional)
 ├── app/
 │   ├── main.py                     # Logika aplikasi web Flask
 │   ├── requirements.txt            # Dependensi Python untuk aplikasi
 │   ├── model/
-│   │   ├── best_model.pkl          # File model terbaik yang disimpan
-│   │   ├── scaler.pkl              # File scaler yang disimpan
-│   │   ├── numerical_cols.pkl      # Daftar kolom numerik
-│   │   └── train_cols.pkl          # Daftar semua kolom training
+│   │   ├── best_model.pkl          # File model yang sudah dilatih
+│   │   └── scaler.pkl              # File scaler untuk data
 │   ├── templates/
-│   │   ├── index.html              # Halaman utama aplikasi web
-│   │   └── results.html            # Halaman untuk menampilkan hasil prediksi
-│   └── uploads/                    # Folder untuk menyimpan file yang diunggah
+│   │   ├── index.html              # Halaman utama web
+│   │   └── results.html            # Halaman untuk hasil prediksi
 ├── dataset/
-│   ├── Weather Test Data.csv       # Data uji
-│   └── Weather Training Data.csv   # Data latih
+│   ├── Weather Test Data.csv       # Data untuk pengujian
+│   └── Weather Training Data.csv   # Data untuk melatih model
 └── README.md                       # File ini
 ```
 
-## ⚙️ Instalasi & Cara Menjalankan
+## Cara Menjalankan Aplikasi
 
-Untuk menjalankan proyek ini di lingkungan lokal Anda, ikuti langkah-langkah berikut:
+Untuk menjalankan proyek ini di komputermu, ikuti langkah-langkah berikut:
 
 ### 1. Clone Repository
 
 ```bash
-git clone <URL_REPOSITORY_ANDA>
-cd <NAMA_FOLDER_REPO>
+git clone https://github.com/bagaswibowo/XAISHAPWeatherPrediction.git
+cd XAISHAPWeatherPrediction
 ```
 
-### 2. Buat dan Aktifkan Virtual Environment
+### 2. Siapkan Virtual Environment
 
-Sangat disarankan untuk menggunakan virtual environment agar tidak mengganggu instalasi Python global Anda.
+Sebaiknya gunakan virtual environment agar tidak mengubah instalasi Python di komputermu.
 
 ```bash
-# Membuat virtual environment
+# Buat virtual environment
 python3 -m venv venv
 
-# Mengaktifkan virtual environment (macOS/Linux)
+# Aktifkan (macOS/Linux)
 source venv/bin/activate
 
 # Untuk Windows, gunakan:
@@ -73,24 +65,24 @@ source venv/bin/activate
 
 ### 3. Instal Dependensi
 
-Instal semua library yang dibutuhkan menggunakan file `requirements.txt` yang ada di dalam folder `app`.
+Instal semua library yang dibutuhkan dari file `requirements.txt`.
 
 ```bash
 pip install -r app/requirements.txt
 ```
 
-### 4. Jalankan Aplikasi Web Flask
+### 4. Jalankan Aplikasi Web
 
-Setelah semua dependensi terinstal, jalankan aplikasi web dari direktori utama proyek.
+Jalankan aplikasi dari direktori utama proyek.
 
 ```bash
 python app/main.py
 ```
 
-### 5. Akses Aplikasi
+### 5. Buka Aplikasi di Browser
 
-Buka browser web Anda dan navigasikan ke alamat berikut:
+Buka browser dan akses alamat berikut:
 
 **http://127.0.0.1:5001**
 
-Anda akan melihat halaman utama di mana Anda dapat mengunggah file `Weather Test Data.csv` atau file data cuaca lainnya yang memiliki format serupa untuk mendapatkan prediksi.
+Sekarang Anda bisa mengunggah file data cuaca untuk mendapatkan prediksi.
