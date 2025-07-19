@@ -1,92 +1,72 @@
 # Prediksi Cuaca Australia
 
-Proyek ini memprediksi apakah besok akan hujan di Australia menggunakan pipeline machine learning XGBoost, GridSearchCV, SHAP, dan Flask web app. Semua proses mulai dari analisis data, training, interpretasi, hingga deployment web dijelaskan dan diimplementasikan secara modular.
+Proyek ini memprediksi apakah besok akan hujan di Australia menggunakan pipeline machine learning (XGBoost, GridSearchCV, SHAP) dan aplikasi web Flask.
 
-## Fitur Proyek
+## Fitur Utama
 
-- **Notebook Analisis**: `Model Weather Prediction.ipynb` berisi seluruh workflow:
-  - Analisis data, EDA, preprocessing, feature engineering
-  - Training & tuning model (XGBoost, GridSearchCV, ensemble)
-  - Evaluasi, interpretasi SHAP, validasi manual
-  - Penyimpanan model, scaler, dan kolom fitur untuk aplikasi web
-- **Aplikasi Web**: Flask app yang bisa:
-  - Upload file CSV (contoh: Weather Test Data.csv) untuk prediksi batch
-  - Input manual data cuaca untuk prediksi satu baris
-  - Tampilkan hasil prediksi dalam bentuk tabel
-- **Model & Scaler**: Model terbaik, scaler, dan daftar kolom fitur disimpan otomatis dari notebook ke folder `app/model/` agar bisa langsung dipakai di web.
-
-## Teknologi
-
-- **Bahasa**: Python
-- **Library Utama**: scikit-learn, xgboost, shap, pandas, numpy, matplotlib, seaborn
-- **Web**: Flask
+- Analisis data, EDA, preprocessing, feature engineering, training, tuning, dan interpretasi model di notebook.
+- Export model, scaler, dan kolom fitur dari notebook ke folder `app/model/`.
+- Web Flask untuk prediksi cuaca:
+  - Upload file CSV (Weather Test Data.csv) untuk prediksi batch.
+  - Input manual data cuaca untuk prediksi satu baris.
+  - Hasil prediksi tampil dalam tabel.
 
 ## Struktur File
 
 ```
-.
-├── Model Weather Prediction.ipynb      # Notebook utama analisis, training, interpretasi, dan export model
+├── Model Weather Prediction.ipynb      # Notebook analisis, training, interpretasi, export model
 ├── app/
-│   ├── main.py                        # Logika aplikasi web Flask
-│   ├── requirements.txt               # Dependensi Python untuk aplikasi web
+│   ├── main.py                        # Web Flask
+│   ├── requirements.txt               # Dependensi web
 │   ├── model/
-│   │   ├── best_model.pkl             # Model machine learning terlatih
-│   │   ├── scaler.pkl                 # Scaler untuk fitur numerik
-│   │   ├── train_cols.pkl             # Daftar kolom fitur yang digunakan saat training
-│   │   └── numerical_cols.pkl         # Daftar kolom numerik yang di-scale
+│   │   ├── best_model.pkl             # Model terlatih
+│   │   ├── scaler.pkl                 # Scaler fitur numerik
+│   │   ├── train_cols.pkl             # Daftar kolom fitur
+│   │   └── numerical_cols.pkl         # Daftar kolom numerik
 │   ├── templates/
-│   │   ├── index.html                 # Halaman utama web (upload & input manual)
+│   │   ├── index.html                 # Halaman utama (upload & input manual)
 │   │   └── results.html               # Halaman hasil prediksi
 ├── dataset/
-│   ├── Weather Test Data.csv          # Data untuk pengujian
-│   └── Weather Training Data.csv      # Data untuk melatih model
-└── README.md                          # File ini
+│   ├── Weather Test Data.csv          # Data pengujian
+│   └── Weather Training Data.csv      # Data training
+└── README.md
 ```
 
-## Cara Menjalankan Proyek
+## Cara Menjalankan
 
-### 1. Clone Repository
+1. Clone repository dan masuk ke folder proyek:
+   ```bash
+   git clone https://github.com/bagaswibowo/XAISHAPWeatherPrediction.git
+   cd XAISHAPWeatherPrediction
+   ```
+2. Buat dan aktifkan virtual environment:
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate  # macOS/Linux
+   # venv\Scripts\activate   # Windows
+   ```
+3. Install dependensi:
+   ```bash
+   pip install -r app/requirements.txt
+   ```
+4. Jalankan aplikasi web:
+   ```bash
+   python app/main.py
+   ```
+5. Buka browser ke:
+   ```
+   http://127.0.0.1:5000
+   ```
 
-```bash
-git clone https://github.com/bagaswibowo/XAISHAPWeatherPrediction.git
-cd XAISHAPWeatherPrediction
-```
+## Fitur Web
 
-### 2. Siapkan Virtual Environment
+- **Upload CSV**: Prediksi batch dari file cuaca.
+- **Input Manual**: Prediksi satu baris dari form input.
+- **Hasil Prediksi**: Tabel hasil prediksi, bisa diunduh/disalin.
 
-```bash
-python3 -m venv venv
-source venv/bin/activate  # macOS/Linux
-# venv\Scripts\activate   # Windows
-```
+## Export Model dari Notebook
 
-### 3. Instal Dependensi
-
-```bash
-pip install -r app/requirements.txt
-```
-
-### 4. Jalankan Aplikasi Web
-
-```bash
-python app/main.py
-```
-
-### 5. Buka Aplikasi di Browser
-
-Buka browser dan akses:
-
-**http://127.0.0.1:5000**
-
-### 6. Fitur Web
-
-- **Upload CSV**: Unggah file data cuaca (misal: Weather Test Data.csv) untuk prediksi batch.
-- **Input Manual**: Isi data cuaca secara manual di form untuk prediksi satu baris.
-- **Hasil Prediksi**: Tampil dalam bentuk tabel, bisa diunduh atau disalin.
-
-### 7. Export Model dari Notebook
-
-Di akhir notebook, model terbaik, scaler, dan daftar kolom fitur otomatis disimpan ke folder `app/model/`:
+Di akhir notebook, simpan model, scaler, dan kolom fitur ke folder `app/model/`:
 
 ```python
 import joblib
@@ -98,6 +78,5 @@ joblib.dump(X_train.columns.tolist(), 'app/model/train_cols.pkl')
 
 ## Catatan
 
-- Pastikan file model dan scaler sudah di-export dari notebook sebelum menjalankan web.
-- Jika ingin menambah fitur input manual, tambahkan field di `index.html` dan update backend di `main.py`.
-- Untuk interpretasi model dan analisis SHAP, lihat penjelasan dan visualisasi di notebook.
+- Pastikan file model dan scaler sudah diekspor dari notebook sebelum menjalankan web.
+- Untuk interpretasi model dan analisis SHAP, lihat penjelasan di notebook.
